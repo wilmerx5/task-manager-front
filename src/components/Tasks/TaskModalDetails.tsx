@@ -99,7 +99,7 @@ export default function TaskModalDetails() {
                                     <p className='text-lg text-slate-500 mb-2'>{data.data.task.description}</p>
                                  
                                     <p className='text-lg text-slate-500 mb-2'> History of changes</p>
-                                    {data.data.task.completedBy.map((change)=><p key={change._id}>
+                                    {data.data.task.completedBy.map((change: any)=><p key={change._id}>
                                         <span className=' font-bold text-slate-500'>
                                             </span> {change.user.email} - {change.status}</p>)}
                                     <div className='my-5 space-y-3'>

@@ -11,7 +11,7 @@ type NoteAPIType={
 }
 
 export default{
-        createNote: async ({projectId,taskId,formData}:NoteAPIType) => {
+        createNote: async ({projectId,taskId,formData}:Pick<NoteAPIType,'formData'|'projectId' |'taskId' >) => {
             try {
                 const { data } = await api.post(`/projects/${projectId}/tasks/${taskId}/notes`,formData)
                 console.log(data)

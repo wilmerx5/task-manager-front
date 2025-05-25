@@ -2,6 +2,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import AppLayout from './layouts/AppLayout'
 import AuthLayout from './layouts/AuthLayout'
 import ProfileLayout from './layouts/ProfileLayout'
+import View404 from './views/404/404View'
 import ConfirmAccountView from './views/auth/ConfirmAccountView'
 import ForgotPassword from './views/auth/ForgotPassword'
 import LoginView from './views/auth/LoginView'
@@ -31,10 +32,6 @@ function Router() {
                         <Route path='/profile' element={<ProfileView />} />
                         <Route path='/profile/password' element={<ChangePasswordView />} />
                     </Route>
-
-
-
-
                 </Route>
 
                 <Route element={<AuthLayout />}>
@@ -44,13 +41,9 @@ function Router() {
                     <Route path='/auth/new-code' element={<RequestNewCodeVIew />} index />
                     <Route path='/auth/forgot-password' element={<ForgotPassword />} index />
                     <Route path='/auth/new-password' element={<NewPasswordView />} index />
-
-
-
-
-
-
-
+                </Route>
+                <Route element={<AuthLayout />}>
+                    <Route path='*' element={<View404 />}></Route>
                 </Route>
             </Routes>
         </BrowserRouter>

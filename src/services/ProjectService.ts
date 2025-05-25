@@ -1,6 +1,6 @@
 import { isAxiosError } from "axios";
 import api from "../lib/axios";
-import { DashboardProjectSchema, ProjectFormData, ProjectT } from "../types";
+import { DashboardProjectSchema, editProjectSchema, ProjectFormData, ProjectSchema, ProjectT } from "../types";
 
 export default {
     createProject: async (formData: ProjectFormData) => {
@@ -43,8 +43,35 @@ export default {
     getProjectById: async (id: ProjectT['_id']) => {
         try {
             const { data } = await api.get(`/projects/${id}`)
+            const response = editProjectSchema.safeParse(data.project)
+
+
+            console.log(response, data)
+            if (response.success) {
+                return response.data
+            }
             console.log(data)
-            return data.project
+        } catch (e) {
+            console.log(e)
+            if (isAxiosError(e)) {
+                throw new Error(e.response?.data)
+            } else {
+                throw new Error(`Try again later ${e}`)
+            }
+        }
+    },
+    getFullProjectById: async (id: ProjectT['_id']) => {
+        try {
+            const { data } = await api.get(`/projects/${id}`)
+            console.log(data)
+            const response = ProjectSchema.safeParse(data.project)
+
+
+            console.log(response, data)
+            if (response.success) {
+                return response.data
+            }
+            console.log(data)
         } catch (e) {
             console.log(e)
             if (isAxiosError(e)) {
@@ -68,7 +95,7 @@ export default {
             }
         }
     },
-     deleteProject: async (id: ProjectT['_id']) => {
+    deleteProject: async (id: ProjectT['_id']) => {
         try {
             const { data } = await api.delete(`/projects/${id}`)
             console.log(data)

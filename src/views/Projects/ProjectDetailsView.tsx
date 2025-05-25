@@ -17,8 +17,8 @@ function ProjectDetailsView() {
     const projectId = params.projectId!
     const navigate = useNavigate()
     const { data, isError, isLoading } = useQuery({
+        queryFn: () => ProjectService.getFullProjectById(projectId),
         queryKey: ['project', projectId],
-        queryFn: () => ProjectService.getProjectById(projectId),
         retry: 10
     })
  const canEdit = useMemo(()=>
